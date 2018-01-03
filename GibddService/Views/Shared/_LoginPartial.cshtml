@@ -1,0 +1,24 @@
+﻿@using GibddService.Controllers
+@using GibddService.Helpers
+@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginFormFor<AccountController>(e => e.LogOff(), FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+    @Html.AntiForgeryToken()
+
+    <ul class="nav navbar-nav navbar-right">
+        <li>
+            @(Html.ActionLinkAsyncFor<ManageController>("Здравствуйте, " + User.Identity.GetUserName() + "!", e => e.Index(null), routeValues: null, htmlAttributes: new { title = "Manage" }))
+        </li>
+        <li><a href="javascript:document.getElementById('logoutForm').submit()">Выйти</a></li>
+    </ul>
+    }
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li>@(Html.ActionLinkFor<AccountController>("Регистрация", e => e.Register(), routeValues: null, htmlAttributes: new { id = "registerLink" }))</li>
+        <li>@(Html.ActionLinkFor<AccountController>("Выполнить вход", e => e.Login(null), routeValues: null, htmlAttributes: new { id = "loginLink" }))</li>
+    </ul>
+}
