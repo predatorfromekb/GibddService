@@ -205,6 +205,15 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\HtmlHelperExtensions.cs" />
+    <Compile Include="Migrations\201801031556403_InitialCreate.cs" />
+    <Compile Include="Migrations\201801031556403_InitialCreate.Designer.cs">
+      <DependentUpon>201801031556403_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801041622591_Birthdate.cs" />
+    <Compile Include="Migrations\201801041622591_Birthdate.Designer.cs">
+      <DependentUpon>201801041622591_Birthdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -286,7 +295,12 @@
     <None Include="Service References\ASPSMSX2\aspsmsx2.wsdl" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <EmbeddedResource Include="Migrations\201801031556403_InitialCreate.resx">
+      <DependentUpon>201801031556403_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801041622591_Birthdate.resx">
+      <DependentUpon>201801041622591_Birthdate.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
