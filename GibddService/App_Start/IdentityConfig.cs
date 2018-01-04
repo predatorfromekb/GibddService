@@ -27,7 +27,14 @@ namespace GibddService
     {
         public Task SendAsync(IdentityMessage message)
         {
-            // Подключите здесь службу SMS, чтобы отправить текстовое сообщение.
+            var soapSms = new ASPSMSX2.ASPSMSX2SoapClient("ASPSMSX2Soap");
+            soapSms.SendSimpleTextSMS(
+              System.Configuration.ConfigurationManager.AppSettings["SMSAccountIdentification"],
+              System.Configuration.ConfigurationManager.AppSettings["SMSAccountPassword"],
+              message.Destination,
+              System.Configuration.ConfigurationManager.AppSettings["SMSAccountFrom"],
+              message.Body);
+            soapSms.Close();
             return Task.FromResult(0);
         }
     }
