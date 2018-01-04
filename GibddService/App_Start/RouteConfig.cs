@@ -7,6 +7,7 @@ using System.Web.Routing;
 using GibddService.Controllers;
 using System.Dynamic;
 using GibddService.Helpers;
+using GibddService.Models;
 
 namespace GibddService
 {
@@ -16,20 +17,10 @@ namespace GibddService
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             routes.RegisterHomeRoutes();
+            routes.RegisterAccountRoutes();
 
-            routes.MapActionFor<AccountController>(e => e.Register(), "register");
-            routes.MapActionFor<AccountController>(e => e.Register(null), "register");
-            routes.MapActionFor<AccountController>(e => e.Login(null), "login");
-            routes.MapActionFor<AccountController>(e => e.Login(null, null), "login");
-            routes.MapActionFor<AccountController>(e => e.LogOff(), "logout");
-
-            routes.MapActionFor<ManageController>(e => e.AddPhoneNumber(), "logout");
-            routes.MapActionFor<ManageController>(e => e.AddPhoneNumber(null), "logout");
-            //routes.MapRoute(
-            //    name: "Default",
-            //    url: "{controller}/{action}/{id}",
-            //    defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
-            //);
+            //В самом конце
+            routes.RegisterDefaultRoute();
         }
 
         public static void RegisterHomeRoutes(this RouteCollection routes)
@@ -38,6 +29,22 @@ namespace GibddService
             routes.MapActionFor<HomeController>(e => e.Contact(), "contact");
             routes.MapActionFor<HomeController>(e => e.About(), "about");
         }
-        
+
+        public static void RegisterAccountRoutes(this RouteCollection routes)
+        {
+            routes.MapActionFor<AccountController>(e => e.Login(null), "login");
+            routes.MapActionFor<AccountController>(e => e.Login(null, null), "login");
+            routes.MapActionFor<AccountController>(e => e.Register(), "register");
+            routes.MapActionFor<AccountController>(e => e.Register(null), "register");
+            routes.MapActionFor<AccountController>(e => e.LogOff(), "logout");
+        }
+
+        public static void RegisterDefaultRoute(this RouteCollection routes)
+        {
+            routes.MapRoute(
+                name: "Default",
+                url: "{controller}/{action}/{id}",
+                defaults: new {controller = "Home", action = "Index", id = UrlParameter.Optional});
+        }
     }
 }
