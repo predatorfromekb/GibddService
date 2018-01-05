@@ -1,41 +1,75 @@
 ﻿@model GibddService.Models.RegisterViewModel
 @{
     ViewBag.Title = "Регистрация";
+    const string LABEL_CLASS = "col-md-2 control-label";
+    const string TEXTBOX_CLASS = "form-control";
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jsdatetimepicker")
+}
+@section Styles {
+    @Styles.Render("~/Content/cssdatetimepicker")
+    @Styles.Render("~/Content/css-register")
 }
 
 <h2>@ViewBag.Title.</h2>
 
-@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+@using (Html.BeginForm("Register", "Account", FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
 {
     @Html.AntiForgeryToken()
     <h4>Создайте новую учетную запись.</h4>
-    <hr />
-    @Html.ValidationSummary("", new { @class = "text-danger" })
+    <hr/>
+    @Html.ValidationSummary("", new {@class = "text-danger"})
+
     <div class="form-group">
-        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+        @Html.LabelFor(m => m.UserName, new {@class = LABEL_CLASS})
         <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+            @Html.TextBoxFor(m => m.UserName, new {@class = TEXTBOX_CLASS})
         </div>
     </div>
     <div class="form-group">
-        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+        @Html.LabelFor(m => m.Password, new { @class = LABEL_CLASS })
         <div class="col-md-10">
-            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+            @Html.PasswordFor(m => m.Password, new { @class = TEXTBOX_CLASS })
         </div>
     </div>
     <div class="form-group">
-        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
+        @Html.LabelFor(m => m.ConfirmPassword, new { @class = LABEL_CLASS })
         <div class="col-md-10">
-            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = TEXTBOX_CLASS })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.PhoneNumber, new {@class = LABEL_CLASS})
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.PhoneNumber, new {@class = TEXTBOX_CLASS})
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Email, new {@class = LABEL_CLASS})
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Email, new {@class = TEXTBOX_CLASS})
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.BirthDate, new { @class = LABEL_CLASS })
+        <div class='input-group date pl-15 pr-15' id='datetimepicker2'>
+            @Html.TextBoxFor(m => m.BirthDate, new { @class = TEXTBOX_CLASS })
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
         </div>
     </div>
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" value="Регистрация" />
+            <input type="submit" class="btn btn-default" value="Регистрация"/>
         </div>
     </div>
 }
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+<script type="text/javascript">
+    $(function() {
+        $('#datetimepicker2').datetimepicker({
+            locale: 'ru'
+        });
+    });
+</script>

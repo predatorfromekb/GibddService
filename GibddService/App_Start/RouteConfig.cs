@@ -28,6 +28,8 @@ namespace GibddService
             routes.MapActionFor<HomeController>(e => e.Index(), string.Empty);
             routes.MapActionFor<HomeController>(e => e.Contact(), "contact");
             routes.MapActionFor<HomeController>(e => e.About(), "about");
+            routes.MapActionFor<HomeController>(e => e.Marks(), "marks");
+            routes.MapActionFor<HomeController>(e => e.Test(), "test");
         }
 
         public static void RegisterAccountRoutes(this RouteCollection routes)

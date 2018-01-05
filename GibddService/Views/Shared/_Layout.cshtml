@@ -9,7 +9,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title – приложение ASP.NET</title>
     @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/commonjs")
+    @RenderSection("scripts", required: false)
+    @RenderSection("styles", required: false)
 
 </head>
 <body>
@@ -28,6 +30,10 @@
                     <li>@(Html.ActionLinkFor<HomeController>("Домашняя страница", e => e.Index()))</li>
                     <li>@(Html.ActionLinkFor<HomeController>("О программе", e => e.About()))</li>
                     <li>@(Html.ActionLinkFor<HomeController>("Контакт", e => e.Contact()))</li>
+                    @if (User.IsUserOrMore())
+                    {
+                        <li>@(Html.ActionLinkFor<HomeController>("Биг рашшн босс", e => e.Contact()))</li>
+                    }
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -40,9 +46,5 @@
             <p>&copy; @DateTime.Now.Year – приложение ASP.NET</p>
         </footer>
     </div>
-
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
 </body>
 </html>

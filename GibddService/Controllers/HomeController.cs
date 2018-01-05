@@ -1,8 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
+using System.Web.UI.WebControls;
+using DataLayer.Models;
+using DataLayer.Models.UserRoles;
+using DataLayer.Repositories;
+using Microsoft.AspNet.Identity;
 
 namespace GibddService.Controllers
 {
@@ -25,6 +30,18 @@ namespace GibddService.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+
+        [Authorize(Roles = nameof(UserRole.User))]
+        public ActionResult Marks()
+        {
+            var model = MarkRepository.Get();
+            return View(model);
+        }
+
+        public ActionResult Test()
+        {
+            return View("Index");
         }
     }
 }
