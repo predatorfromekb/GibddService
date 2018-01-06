@@ -46,6 +46,8 @@
                     {
                         <li>@(Html.ActionLinkAsyncFor<GibddStaffController>("Подтвердить личность",
                                   e => e.GetUnconfirmedUsers()))</li>
+                        <li>@(Html.ActionLinkAsyncFor<GibddStaffController>("Транспортные средства",
+                                  e => e.GetUnconfirmedVehicles()))</li>
                     }
                 </ul>
                 @Html.Partial("_LoginPartial")

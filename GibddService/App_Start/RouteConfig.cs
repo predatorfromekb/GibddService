@@ -62,6 +62,9 @@ namespace GibddService
         {
             routes.MapActionFor<GibddStaffController>(e => e.GetUnconfirmedUsers(), "unconfirmed-users");
             routes.MapActionFor<GibddStaffController>(e => e.ConfirmUser(null), "confirm-user");
+            routes.MapActionFor<GibddStaffController>(e => e.GetUnconfirmedVehicles(), "unconfirmed-vehicles");
+            routes.MapActionFor<GibddStaffController>(e => e.ConfirmVehicle(0), "confirm-vehicle");
+            routes.MapActionFor<GibddStaffController>(e => e.DeleteVehicle(0), "delete-vehicle");
         }
 
         public static void RegisterDefaultRoute(this RouteCollection routes)

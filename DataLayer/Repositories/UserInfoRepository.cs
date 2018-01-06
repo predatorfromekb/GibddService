@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Threading.Tasks;
 using DataLayer.Contexts;
@@ -14,16 +15,7 @@ namespace DataLayer.Repositories
         {
             using (var db = new ApplicationDbContext())
             {
-                var info = await db.UserInfoes
-                    .FirstOrDefaultAsync(e => e.Id == userInfo.Id);
-                if (info == null)
-                    db.UserInfoes.Add(userInfo);
-                else
-                {
-                    info.BirthDate = userInfo.BirthDate;//TODO - мапинг
-                    info.PassportSeries = userInfo.PassportSeries;
-                    info.PassportNumber = userInfo.PassportNumber;
-                }
+                db.UserInfoes.AddOrUpdate(userInfo);
                 await db.SaveChangesAsync();
             }
         }

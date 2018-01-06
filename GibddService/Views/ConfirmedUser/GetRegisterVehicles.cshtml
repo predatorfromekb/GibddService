@@ -9,7 +9,7 @@
 <h2>@ViewBag.Title</h2>
 
 <p>
-    @(Html.ActionLinkFor<ConfirmedUserController>("Загеристрировать новое ТС", e => e.RegisterVehicle()))
+    @(Html.ActionLinkFor<ConfirmedUserController>("Загеристрировать новое ТС", e => e.RegisterVehicle(),null,new {@class= "btn btn-success" }))
 </p>
 <table class="table">
     <tr>
@@ -28,25 +28,25 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var vehicle in Model) {
     <tr>
         <th>
-            @Html.DisplayFor(model => item.Model.Mark.Name)
+            @Html.DisplayFor(model => vehicle.Model.Mark.Name)
         </th>
         <th>
-            @Html.DisplayFor(model => item.Model.Name)
+            @Html.DisplayFor(model => vehicle.Model.Name)
         </th>
         <th>
-            @Html.DisplayFor(model => item.StateNumber)
+            @Html.DisplayFor(model => vehicle.StateNumber)
         </th>
         <th>
-            @Html.DisplayFor(model => item.SerialNumber)
+            @Html.DisplayFor(model => vehicle.SerialNumber)
         </th>
-        @*<td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>*@
+        <td>
+            @(Html.ActionLinkAsyncFor<ConfirmedUserController>(
+                vehicle.IsWaitForDelete ? "В очереди" : "Снять с учета",e => e.AddToDeleteQueue(0),
+                new { id = vehicle.Id }, new { @class = "btn btn-danger" + (vehicle.IsWaitForDelete ? " disabled" : "")}))
+        </td>
     </tr>
 }
 

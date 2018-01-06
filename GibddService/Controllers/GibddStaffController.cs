@@ -55,12 +55,37 @@ namespace GibddService.Controllers
             var userInfos = await UserInfoRepository.Get();
             return View(userInfos);
         }
+
         [HttpGet]
         public async Task<ActionResult> ConfirmUser(string id)
         { 
             await UserManager.RemoveFromRoleAsync(id, nameof(UserRole.User));
             await UserManager.AddToRoleAsync(id, nameof(UserRole.ConfirmedUser));
             return RedirectToAction("GetUnconfirmedUsers");
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> GetUnconfirmedVehicles()
+        {
+            var vehicles = await VehicleRepository.GetUnconfirmedVehicles();
+            return View(vehicles);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> ConfirmVehicle(int id)
+        {
+            var vehicle = await VehicleRepository.FindVehicleById(id);
+            vehicle.Confirmed = true;
+            await VehicleRepository.Upsert(vehicle);
+            return RedirectToAction("GetUnconfirmedVehicles");
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> DeleteVehicle(int id)
+        {
+            var vehicle = await VehicleRepository.FindVehicleById(id);
+            await VehicleRepository.Delete(vehicle);
+            return RedirectToAction("GetUnconfirmedVehicles");
         }
     }
 }

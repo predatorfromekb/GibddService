@@ -2,6 +2,7 @@
 using System.Linq;
 using DataLayer.Contexts;
 using DataLayer.Models;
+using System.Data.Entity;
 
 namespace DataLayer.Repositories
 {
@@ -11,7 +12,7 @@ namespace DataLayer.Repositories
         {
             using (var db = new ApplicationDbContext())
             {
-                return db.Marks.Include("Models").ToList();
+                return db.Marks.Include(e => e.Models).ToList();
             }
         }
 

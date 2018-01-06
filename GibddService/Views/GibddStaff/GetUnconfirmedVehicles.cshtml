@@ -1,0 +1,63 @@
+﻿@using GibddService.Controllers
+@using GibddService.Helpers
+@model IEnumerable<DataLayer.Models.Vehicle>
+
+@{
+    ViewBag.Title = "Ожидающие транспортные средства";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Владелец
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Model.Mark.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StateNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SerialNumber)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var vehicle in Model) {
+        <tr>
+            <th>
+                @Html.DisplayFor(model => vehicle.ApplicationUser.UserName)
+            </th>
+            <th>
+                @Html.DisplayFor(model => vehicle.Model.Mark.Name)
+            </th>
+            <th>
+                @Html.DisplayFor(model => vehicle.Model.Name)
+            </th>
+            <th>
+                @Html.DisplayFor(model => vehicle.StateNumber)
+            </th>
+            <th>
+                @Html.DisplayFor(model => vehicle.SerialNumber)
+            </th>
+            <td>
+                @if (!vehicle.Confirmed)
+                {
+                    @(Html.ActionLinkAsyncFor<GibddStaffController>("Поставить на учет", e => e.ConfirmVehicle(0),
+                          new {id = vehicle.Id}, new {@class = "btn btn-success"}))
+                }
+                else if (vehicle.IsWaitForDelete)
+                {
+                    @(Html.ActionLinkAsyncFor<GibddStaffController>("Снять с учета", e => e.DeleteVehicle(0),
+                          new {id = vehicle.Id}, new {@class = "btn btn-danger"}))
+                }
+            </td>
+        </tr>
+    }
+
+</table>

@@ -10,9 +10,10 @@ namespace DataLayer.Models
         [Display(Name = "Модель")]
         public string Name { get; set; }
 
+        [ForeignKey("Mark")]
         public int MarkId { get; set; }
-
         public Mark Mark { get; set; }
+
         public ICollection<Vehicle> Vehicles { get; set; }
     }
 }

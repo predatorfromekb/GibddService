@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DataLayer.Models
 {
@@ -15,8 +16,12 @@ namespace DataLayer.Models
         public string SerialNumber { get; set; }
 
         public bool Confirmed { get; set; }
-        public string ModelId { get; set; }
+        public bool IsWaitForDelete { get; set; }
+
+        [ForeignKey("Model")]
+        public int ModelId { get; set; }
         public Model Model { get; set; }
+
         public string ApplicationUserId { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
     }

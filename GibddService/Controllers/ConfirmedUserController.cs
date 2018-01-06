@@ -18,18 +18,29 @@ namespace GibddService.Controllers
             var vehicles = await VehicleRepository.GetVehiclesByUserId(userId);
             return View(vehicles);
         }
+
         [HttpGet]
         public ActionResult RegisterVehicle()
         {
             var userId = User.Identity.GetUserId();
-            var vehicle = new Vehicle() {ApplicationUserId = userId};
+            var vehicle = new Vehicle {ApplicationUserId = userId};
             var model = new RegisterVehicleViewModel(vehicle, MarkRepository.Get());
             return View(model);
         }
+
         [HttpPost]
         public async Task<ActionResult> RegisterVehicle(RegisterVehicleViewModel model)
         {
-            await VehicleRepository.Insert(model.Vehicle);
+            await VehicleRepository.Upsert(model.Vehicle);
+            return RedirectToAction("GetRegisterVehicles");
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> AddToDeleteQueue(int id)
+        {
+            var vehicle = await VehicleRepository.FindVehicleById(id);
+            vehicle.IsWaitForDelete = true;
+            await VehicleRepository.Upsert(vehicle);
             return RedirectToAction("GetRegisterVehicles");
         }
     }
