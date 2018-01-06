@@ -3,7 +3,7 @@ namespace GibddService.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitialCreate : DbMigration
+    public partial class vehicle : DbMigration
     {
         public override void Up()
         {
@@ -29,6 +29,19 @@ namespace GibddService.Migrations
                 .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.UserId)
                 .Index(t => t.RoleId);
+            
+            CreateTable(
+                "dbo.UserInfoes",
+                c => new
+                    {
+                        Id = c.String(nullable: false, maxLength: 128),
+                        BirthDate = c.DateTime(),
+                        PassportSeries = c.String(maxLength: 4),
+                        PassportNumber = c.String(maxLength: 6),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.AspNetUsers", t => t.Id)
+                .Index(t => t.Id);
             
             CreateTable(
                 "dbo.AspNetUsers",
@@ -75,23 +88,74 @@ namespace GibddService.Migrations
                 .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.UserId);
             
+            CreateTable(
+                "dbo.Vehicles",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        StateNumber = c.String(),
+                        SerialNumber = c.String(),
+                        Confirmed = c.Boolean(nullable: false),
+                        ModelId = c.String(),
+                        ApplicationUserId = c.String(maxLength: 128),
+                        Model_Id = c.Int(),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.AspNetUsers", t => t.ApplicationUserId)
+                .ForeignKey("dbo.Models", t => t.Model_Id)
+                .Index(t => t.ApplicationUserId)
+                .Index(t => t.Model_Id);
+            
+            CreateTable(
+                "dbo.Models",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Name = c.String(),
+                        MarkId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Marks", t => t.MarkId, cascadeDelete: true)
+                .Index(t => t.MarkId);
+            
+            CreateTable(
+                "dbo.Marks",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Name = c.String(),
+                    })
+                .PrimaryKey(t => t.Id);
+            
         }
         
         public override void Down()
         {
+            DropForeignKey("dbo.UserInfoes", "Id", "dbo.AspNetUsers");
+            DropForeignKey("dbo.Vehicles", "Model_Id", "dbo.Models");
+            DropForeignKey("dbo.Models", "MarkId", "dbo.Marks");
+            DropForeignKey("dbo.Vehicles", "ApplicationUserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
+            DropIndex("dbo.Models", new[] { "MarkId" });
+            DropIndex("dbo.Vehicles", new[] { "Model_Id" });
+            DropIndex("dbo.Vehicles", new[] { "ApplicationUserId" });
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
+            DropIndex("dbo.UserInfoes", new[] { "Id" });
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
+            DropTable("dbo.Marks");
+            DropTable("dbo.Models");
+            DropTable("dbo.Vehicles");
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
+            DropTable("dbo.UserInfoes");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetRoles");
         }

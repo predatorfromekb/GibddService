@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using DataLayer.Models;
 using DataLayer.Models.UserRoles;
+using DataLayer.Repositories;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -164,6 +165,14 @@ namespace GibddService.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    var userInfo = new UserInfo
+                    {
+                        Id = user.Id,
+                        BirthDate = model.BirthDate,
+                        PassportSeries = model.PasportSeries,
+                        PassportNumber = model.PasportNumber
+                    };
+                    await UserInfoRepository.Upsert(userInfo);
                     await UserManager.AddToRoleAsync(user.Id, nameof(UserRole.User));
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     

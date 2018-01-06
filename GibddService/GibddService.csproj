@@ -196,6 +196,8 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Content Include="Content\bootstrap-extras-margins-padding.css" />
+    <Compile Include="Controllers\ConfirmedUserController.cs" />
+    <Compile Include="Controllers\GibddStaffController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Helpers\PrincipalExtensions.cs" />
     <Compile Include="Helpers\RouteCollectionExtensions.cs" />
@@ -208,14 +210,26 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\HtmlHelperExtensions.cs" />
-    <Compile Include="Migrations\201801031556403_InitialCreate.cs" />
-    <Compile Include="Migrations\201801031556403_InitialCreate.Designer.cs">
-      <DependentUpon>201801031556403_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\201801061111069_vehicle.cs" />
+    <Compile Include="Migrations\201801061111069_vehicle.Designer.cs">
+      <DependentUpon>201801061111069_vehicle.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801061122348_vehicle2.cs" />
+    <Compile Include="Migrations\201801061122348_vehicle2.Designer.cs">
+      <DependentUpon>201801061122348_vehicle2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801061123372_vehicle3.cs" />
+    <Compile Include="Migrations\201801061123372_vehicle3.Designer.cs">
+      <DependentUpon>201801061123372_vehicle3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801061137458_vehicle4.cs" />
+    <Compile Include="Migrations\201801061137458_vehicle4.Designer.cs">
+      <DependentUpon>201801061137458_vehicle4.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\RegisterVehicleViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service References\ASPSMSX2\Reference.cs">
       <AutoGen>True</AutoGen>
@@ -393,11 +407,10 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <None Include="Service References\ASPSMSX2\aspsmsx2.wsdl" />
     <Content Include="Views\Home\Marks.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201801031556403_InitialCreate.resx">
-      <DependentUpon>201801031556403_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
+    <Content Include="Views\User\ChangeUserInfo.cshtml" />
+    <Content Include="Views\GibddStaff\GetUnconfirmedUsers.cshtml" />
+    <Content Include="Views\ConfirmedUser\GetRegisterVehicles.cshtml" />
+    <Content Include="Views\ConfirmedUser\RegisterVehicle.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -414,6 +427,20 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\ASPSMSX2\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201801061111069_vehicle.resx">
+      <DependentUpon>201801061111069_vehicle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801061122348_vehicle2.resx">
+      <DependentUpon>201801061122348_vehicle2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801061123372_vehicle3.resx">
+      <DependentUpon>201801061123372_vehicle3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801061137458_vehicle4.resx">
+      <DependentUpon>201801061137458_vehicle4.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

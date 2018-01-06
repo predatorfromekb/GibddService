@@ -1,3 +1,6 @@
+using DataLayer.Contexts;
+using DataLayer.Models;
+
 namespace GibddService.Migrations
 {
     using System;
@@ -5,15 +8,15 @@ namespace GibddService.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<GibddService.Models.ApplicationDbContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<ApplicationDbContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            ContextKey = "GibddService.Models.ApplicationDbContext";
+            //ContextKey = "DataLayer.Contexts.ApplicationDbContext";
         }
 
-        protected override void Seed(GibddService.Models.ApplicationDbContext context)
+        protected override void Seed(ApplicationDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 

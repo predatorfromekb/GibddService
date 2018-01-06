@@ -7,13 +7,13 @@ namespace GibddService.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class InitialCreate : IMigrationMetadata
+    public sealed partial class vehicle3 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(InitialCreate));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(vehicle3));
         
         string IMigrationMetadata.Id
         {
-            get { return "201801031556403_InitialCreate"; }
+            get { return "201801061123372_vehicle3"; }
         }
         
         string IMigrationMetadata.Source

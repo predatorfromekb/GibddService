@@ -1,0 +1,67 @@
+﻿@using DataLayer.Models
+@using GibddService.Controllers
+@using GibddService.Helpers
+@using GibddService.Models
+@model GibddService.Models.RegisterVehicleViewModel
+
+@{
+    var vehicle = Model.Vehicle;
+    ViewBag.Title = "Зарегистрировать новое ТС";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginFormAsyncFor<ConfirmedUserController>(e => e.RegisterVehicle(null), FormMethod.Post)) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => vehicle.StateNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => vehicle.StateNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => vehicle.StateNumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => vehicle.SerialNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => vehicle.SerialNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => vehicle.SerialNumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => vehicle.ModelId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => vehicle.ModelId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => vehicle.ModelId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        
+        @*<div class="form-group">
+            @Html.LabelFor(model => vehicle.Model.MarkId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => vehicle.Model.MarkId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => vehicle.Model.MarkId, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        @Html.HiddenFor(e => e.Vehicle.ApplicationUserId,new {value = vehicle.ApplicationUserId})
+
+        @Html.HiddenFor(e => e.Vehicle.Confirmed, new {value = false})
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "GetRegisterVehicles")
+</div>

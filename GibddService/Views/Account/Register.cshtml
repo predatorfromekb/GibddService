@@ -61,6 +61,18 @@
         </div>
     </div>
     <div class="form-group">
+        @Html.LabelFor(m => m.PasportSeries, new { @class = LABEL_CLASS })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.PasportSeries, new { @class = TEXTBOX_CLASS })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.PasportNumber, new { @class = LABEL_CLASS })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.PasportNumber, new { @class = TEXTBOX_CLASS })
+        </div>
+    </div>
+    <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" class="btn btn-default" value="Регистрация"/>
         </div>

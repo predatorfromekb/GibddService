@@ -1,5 +1,7 @@
-﻿@using GibddService.Controllers
+﻿@using DataLayer.Models.UserRoles
+@using GibddService.Controllers
 @using GibddService.Helpers
+@using Microsoft.AspNet.Identity
 
 <!DOCTYPE html>
 <html>
@@ -30,9 +32,20 @@
                     <li>@(Html.ActionLinkFor<HomeController>("Домашняя страница", e => e.Index()))</li>
                     <li>@(Html.ActionLinkFor<HomeController>("О программе", e => e.About()))</li>
                     <li>@(Html.ActionLinkFor<HomeController>("Контакт", e => e.Contact()))</li>
-                    @if (User.IsUserOrMore())
+                    @if (User.IsInRole(nameof(UserRole.User)))
                     {
-                        <li>@(Html.ActionLinkFor<HomeController>("Биг рашшн босс", e => e.Contact()))</li>
+                        <li>@(Html.ActionLinkAsyncFor<UserController>("Персональные данные",
+                            e => e.ChangeUserInfo()))</li>
+                    }
+                    @if (User.IsInRole(nameof(UserRole.ConfirmedUser)))
+                    {
+                        <li>@(Html.ActionLinkAsyncFor<ConfirmedUserController>("Транспортные средства",
+                                  e => e.GetRegisterVehicles()))</li>
+                    }                    
+                    @if (User.IsInRole(nameof(UserRole.GibddStaff)))
+                    {
+                        <li>@(Html.ActionLinkAsyncFor<GibddStaffController>("Подтвердить личность",
+                                  e => e.GetUnconfirmedUsers()))</li>
                     }
                 </ul>
                 @Html.Partial("_LoginPartial")

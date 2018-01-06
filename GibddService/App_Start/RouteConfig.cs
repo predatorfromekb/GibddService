@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using GibddService.Controllers;
 using System.Dynamic;
+using DataLayer.Models;
 using GibddService.Helpers;
 using GibddService.Models;
 
@@ -18,7 +19,9 @@ namespace GibddService
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             routes.RegisterHomeRoutes();
             routes.RegisterAccountRoutes();
-
+            routes.RegisterUserRoutes();
+            routes.RegisterConfirmedUserRoutes();
+            routes.RegisterGibddStaffRoutes();
             //В самом конце
             routes.RegisterDefaultRoute();
         }
@@ -39,6 +42,26 @@ namespace GibddService
             routes.MapActionFor<AccountController>(e => e.Register(), "register");
             routes.MapActionFor<AccountController>(e => e.Register(null), "register");
             routes.MapActionFor<AccountController>(e => e.LogOff(), "logout");
+        }
+
+        public static void RegisterUserRoutes(this RouteCollection routes)
+        {
+            routes.MapActionFor<UserController>(e => e.ChangeUserInfo((UserInfo)null), "change-user-info");
+            routes.MapActionFor<UserController>(e => e.ChangeUserInfo(), "change-user-info");
+        }
+
+        public static void RegisterConfirmedUserRoutes(this RouteCollection routes)
+        {
+            routes.MapActionFor<ConfirmedUserController>(e => e.GetRegisterVehicles(), "get-register-vehicles");
+            routes.MapActionFor<ConfirmedUserController>(e => e.RegisterVehicle((RegisterVehicleViewModel)null), "reguster-vehicle");
+            routes.MapActionFor<ConfirmedUserController>(e => e.RegisterVehicle(), "reguster-vehicle");
+            //routes.MapActionFor<ConfirmedUserController>(e => e.ChangeUserInfo((string)null), "change-user-info");
+        }
+
+        public static void RegisterGibddStaffRoutes(this RouteCollection routes)
+        {
+            routes.MapActionFor<GibddStaffController>(e => e.GetUnconfirmedUsers(), "unconfirmed-users");
+            routes.MapActionFor<GibddStaffController>(e => e.ConfirmUser(null), "confirm-user");
         }
 
         public static void RegisterDefaultRoute(this RouteCollection routes)

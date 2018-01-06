@@ -32,7 +32,6 @@ namespace GibddService.Controllers
             return View();
         }
 
-        [Authorize(Roles = nameof(UserRole.User))]
         public ActionResult Marks()
         {
             var model = MarkRepository.Get();

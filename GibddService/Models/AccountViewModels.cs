@@ -69,9 +69,15 @@ namespace GibddService.Models
         public string UserName { get; set; }
 
         [Required]
-        [DataType(DataType.DateTime)]
-        [Display(Name = "Дата рождения")]
-        public DateTime BirthDate { get; set; }
+        [StringLength(100, ErrorMessage = "Значение {0} должно содержать не менее {2} символов.", MinimumLength = 6)]
+        [DataType(DataType.Password)]
+        [Display(Name = "Пароль")]
+        public string Password { get; set; }
+
+        [DataType(DataType.Password)]
+        [Display(Name = "Подтверждение пароля")]
+        [Compare("Password", ErrorMessage = "Пароль и его подтверждение не совпадают.")]
+        public string ConfirmPassword { get; set; }
 
         [Required]
         [Phone]
@@ -83,16 +89,17 @@ namespace GibddService.Models
         [Display(Name = "Электронная почта")]
         public string Email { get; set; }
 
-        [Required]
-        [StringLength(100, ErrorMessage = "Значение {0} должно содержать не менее {2} символов.", MinimumLength = 6)]
-        [DataType(DataType.Password)]
-        [Display(Name = "Пароль")]
-        public string Password { get; set; }
+        [DataType(DataType.DateTime)]
+        [Display(Name = "Дата рождения")]
+        public DateTime? BirthDate { get; set; }
 
-        [DataType(DataType.Password)]
-        [Display(Name = "Подтверждение пароля")]
-        [Compare("Password", ErrorMessage = "Пароль и его подтверждение не совпадают.")]
-        public string ConfirmPassword { get; set; }
+        [StringLength(4)]//TODO - добавить валидацию на число
+        [Display(Name = "Серия паспорта")]
+        public string PasportSeries { get; set; }
+
+        [StringLength(6)]
+        [Display(Name = "Номер паспорта")]
+        public string PasportNumber { get; set; }
     }
 
     public class ResetPasswordViewModel

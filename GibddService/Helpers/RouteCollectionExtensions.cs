@@ -9,11 +9,7 @@ namespace GibddService.Helpers
 {
     public static class RouteCollectionExtensions
     {
-        public static Dictionary<Type, string> Dict = new Dictionary<Type, string>
-        {
-            {typeof(Task<ActionResult>), "_Async"},
-            {typeof(ActionResult), string.Empty}
-        };
+        private static int number;
         public static void MapActionFor<T>(this RouteCollection routes,
             Expression<Func<T, ActionResult>> expression, string url) where T : Controller
         {
@@ -32,7 +28,7 @@ namespace GibddService.Helpers
             var controller = typeof(T).Name.Replace("Controller", string.Empty);//TODO - поменять реализацию
             var action = ((MethodCallExpression)expression.Body).Method.Name;
             var defaults = new { controller, action };
-            var name = $"{controller}_{action}_{Dict[typeof(T1)]}";
+            var name = $"{controller}_{action}_{number++}";
             routes.MapRoute(name, url, defaults);
         }
     }

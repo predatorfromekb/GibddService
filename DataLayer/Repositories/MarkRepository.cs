@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using DataLayer.Contexts;
 using DataLayer.Models;
 
 namespace DataLayer.Repositories
@@ -8,15 +9,15 @@ namespace DataLayer.Repositories
     {
         public static IList<Mark> Get()
         {
-            using (var db = new Context<Mark>())
+            using (var db = new ApplicationDbContext())
             {
-                return db.Entities.Include("Models").ToList();
+                return db.Marks.Include("Models").ToList();
             }
         }
 
         //public static void Set()
         //{
-        //    using (var db = new MarkContext())
+        //    using (var db = new ApplicationDbContext())
         //    {
         //        var marks = new List<Mark>
         //        {
@@ -138,5 +139,6 @@ namespace DataLayer.Repositories
         //        db.SaveChanges();
         //    }
         //}
+
     }
 }

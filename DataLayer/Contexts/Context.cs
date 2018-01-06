@@ -1,6 +1,7 @@
 ﻿using System.Data.Entity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
-namespace DataLayer
+namespace DataLayer.Contexts
 {
     public class Context<T> : DbContext where T: class
     {
